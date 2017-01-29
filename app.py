@@ -1,12 +1,12 @@
-import appier
+from flask import Flask, jsonify, request
+from lib import scrape
 
-class HelloApp(appier.WebApp):
+app = Flask(__name__)
 
-    def __init__(self, *args, **kwargs):
-        appier.WebApp.__init__(
-            self,
-            name = "app_name",
-            *args, **kwargs
-        )
+@app.route('/tweets/sentiment')
+def sentiment():
+    query = request.args.get('query')
+    return jsonify(scrape.get_tone(query, 100))
 
-HelloApp().serve()
+if __name__ == '__main__':
+    app.run(debug=True)
