@@ -1,9 +1,12 @@
 import appier
 
-class HelloApp(appier.App):
+class HelloApp(appier.WebApp):
 
-    @appier.route("/", "GET")
-    def hello(self):
-        return "Hello World"
+    def __init__(self, *args, **kwargs):
+        appier.WebApp.__init__(
+            self,
+            name = "app_name",
+            *args, **kwargs
+        )
 
 HelloApp().serve()
